@@ -20,10 +20,11 @@ const cors = require('cors');
 app.use(cors());
 
 // Initialize the main project folder
-
-const port = 3010;
-/* Spin up the server*/
 app.use(express.static('website'));
+
+/* Spin up the server*/
+// Setup Server
+const port = 3010;
 const server = app.listen(port, listening);
 
 function listening(){
@@ -33,18 +34,28 @@ function listening(){
 
 
 
-// Setup Server
 // GET route
 app.get('/all', sendData);
 
 function sendData (request, response) {
+
+  console.log("Request sent");
   response.send(projectData);
+
 };
 
 // POST route
 app.post('/add', callBack);
 
-function callBack(req,res){
-  res.send('POST received');
+function callBack(request, response){
+  console.log(request.body);
+  projectData = {
+      temperature : request.body.temperature,
+      date : request.body.date,
+      description : request.body.description
+  };
+  response.send(projectData);
+  console.log(projectData);
+
 };
 
