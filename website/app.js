@@ -1,6 +1,6 @@
 /* Global Variables */
 const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&appid=93ec3247177dbb56166d5141dcdca068';
+const apiKey = '&units=metric&appid=93ec3247177dbb56166d5141dcdca068';
 const generate = document.getElementById('generate');
 
 // Create a new date instance dynamically with JS
@@ -14,10 +14,11 @@ const getWeatherData = async (url) => {
     console.log(request);
     try{
         const weatherData = await request.json();
-        console.log("weather data: ", weatherData);
+        console.log('weather data: ', weatherData);
+        return weatherData;
     }
     catch(error){
-        console.log("error", error)
+        console.log('error', error)
     }
 }
 
@@ -37,7 +38,7 @@ const postData = async ( url = '', weatherData = {})=>{
       const newData = await response.json();
       return newData;
     }catch(error) {
-    console.log("error", error);
+    console.log('error', error);
     }
 };
 
@@ -62,10 +63,10 @@ const updateUI = async () =>{
     const request = await fetch('/all');
     try{
         const data = await request.json();
-        document.getElementById("date").innerHTML = data.date;
-        document.getElementById("temp").innerHTML = data.temperature;
-        document.getElementById("content").innerHTML = data.feelings;
+        document.getElementById('date').innerHTML = data.date;
+        document.getElementById('temp').innerHTML = `${data.temperature} &#8451;`;
+        document.getElementById('content').innerHTML = data.feelings;
     }catch(error){
-        console.log("error",error);
+        console.log('error',error);
     };   
 }
