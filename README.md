@@ -3,7 +3,7 @@
 ## Overview
 This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
 
-## What tasks included   
+## Details   
 This project developed in Node environment with Express and other dependencies such as CORS and Body-Parser. 
 Using Routing create endpoints respond to client request. 
 Created credential for a Web API from https://openweathermap.org/
