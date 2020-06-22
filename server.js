@@ -45,14 +45,15 @@ function sendData (request, response) {
 };
 
 // POST route
-app.post('/add', callBack);
+app.post('/', callBack);
 
 function callBack(request, response){
   console.log(request.body);
+  
   projectData = {
       temperature : request.body.temperature,
       date : request.body.date,
-      description : request.body.description
+      feelings : request.body.feelings
   };
   response.send(projectData);
   console.log(projectData);

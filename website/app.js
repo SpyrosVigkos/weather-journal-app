@@ -8,14 +8,13 @@ let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // GET Info from Api using async function and 
-
 const getWeatherData = async (url) => {
 
     const request = await fetch(url);
     console.log(request);
     try{
         const weatherData = await request.json();
-        console.log(weatherData);
+        console.log("weather data: ", weatherData);
     }
     catch(error){
         console.log("error", error)
@@ -45,9 +44,28 @@ const postData = async ( url = '', weatherData = {})=>{
 //add event listener to "Generate" button to GET API details 
 generate.addEventListener('click', genFunction)
 
-//Async function to get the input and call the api data
+//Async function to get the inputs and call the api data
 async function genFunction(){
     zip = document.getElementById("zip").value;
+    const feeling = document.getElementById('feelings').value;
     const apiUrl = url + zip + apiKey;
-    getWeatherData(apiUrl);
+    getWeatherData(apiUrl)
+    .then((weatherData)=>{
+        postData('/', {temperature: weatherData.main.temp, date: newDate, feelings: feeling})
+    })
+    .then(()=>{updateUI()}
+    );
+}
+
+// Update UI Dynamically 
+const updateUI = async () =>{
+    const request = await fetch('/all');
+    try{
+        const data = await request.json();
+        document.getElementById("date").innerHTML = data.date;
+        document.getElementById("temp").innerHTML = data.temperature;
+        document.getElementById("content").innerHTML = data.feelings;
+    }catch(error){
+        console.log("error",error);
+    };   
 }
