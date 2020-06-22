@@ -15,25 +15,39 @@ const getWeatherData = async (url) => {
     console.log(request);
     try{
         const weatherData = await request.json();
-
         console.log(weatherData);
     }
     catch(error){
         console.log("error", error)
-
     }
-    
 }
 
-//add event listener to "Generate" button
+// Async POST to server the landed information from API 
+const postData = async ( url = '', weatherData = {})=>{
+
+    const response = await fetch(url, {
+    method: 'POST', 
+    credentials: 'same-origin', 
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(weatherData), 
+  });
+
+    try {
+      const newData = await response.json();
+      return newData;
+    }catch(error) {
+    console.log("error", error);
+    }
+};
+
+//add event listener to "Generate" button to GET API details 
 generate.addEventListener('click', genFunction)
 
 //Async function to get the input and call the api data
 async function genFunction(){
-    
     zip = document.getElementById("zip").value;
     const apiUrl = url + zip + apiKey;
     getWeatherData(apiUrl);
-
-
 }
