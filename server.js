@@ -2,13 +2,13 @@
 projectData = {};
 
 // Require Express to run server and routes
-const express = require('express');
+const express = require("express");
 
 // Start up an instance of app
 const app = express();
 
 /* Dependencies */
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
@@ -16,47 +16,43 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static("website"));
 
 /* Spin up the server*/
 // Setup Server
 const port = 3010;
 const server = app.listen(port, listening);
 
-function listening(){
-    console.log('server:');
-    console.log(`running on localhost: ${port}`);
-};
-
-
+function listening() {
+  console.log("server:");
+  console.log(`running on localhost: ${port}`);
+}
 
 // GET route
-app.get('/all', sendData);
+app.get("/all", sendData);
 
-function sendData (request, response) {
-
+function sendData(request, response) {
   console.log("Request sent");
   response.send(projectData);
-
-};
+}
 
 // POST route
-app.post('/', callBack);
+app.post("/", callBack);
 
-function callBack(request, response){
+function callBack(request, response) {
   console.log(request.body);
-  
+
   projectData = {
-      temperature : request.body.temperature,
-      date : request.body.date,
-      feelings : request.body.feelings
+    temperature: request.body.temperature,
+    date: request.body.date,
+    feelings: request.body.feelings,
+    description: request.body.description,
+    icon: request.body.icon,
   };
   response.send(projectData);
   console.log(projectData);
-
-};
-
+}
